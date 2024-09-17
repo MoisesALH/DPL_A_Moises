@@ -48,7 +48,11 @@ Lo he arreglado a través de la herramienta de Visual Studio Code para arreglar 
 ```bash
     git tag v0.2
     git branch -d v0.2
+    git push origin -d v0.2
 ```
+
+8. ARREGLAR  CONFLICTO
+<img src="./Captura de pantalla de 2024-09-17 15-28-49.png">
 
 | Nombre | Github |
 |--------|---------|
