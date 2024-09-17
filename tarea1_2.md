@@ -9,7 +9,7 @@
 ```bash
     touch 2.txt
 ```
-3. SUBIR LOS CAMBIOS AÑ REPOSITORIO REMOTO
+3. SUBIR LOS CAMBIOS AL REPOSITORIO REMOTO
 ```bash
     git add .
     git commit -m "creado fiechero 2.txt"
