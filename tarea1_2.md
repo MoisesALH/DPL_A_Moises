@@ -19,8 +19,10 @@
 En mi caso no tengo rama master, sino main
 ```bash
     git checkout main
+    git merge v0.2
+    git push
 ```
-5. IGNORAR ARCHIVOS
+5. MERGE CON CONFLICTO
 ```bash
     touch privado.txt
 ```
