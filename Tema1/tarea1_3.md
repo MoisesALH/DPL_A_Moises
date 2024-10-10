@@ -8,7 +8,7 @@
    git init
    ```
 
-2. **Crear archivo `index.htm` y añadir estructura básica:**
+2. **Crear archivo `index.html` y añadir estructura básica:**
    ```html
    <!DOCTYPE html>
    <html lang="es">
@@ -16,17 +16,15 @@
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <title>Blog de Galpón</title>
-       <!-- Aquí se añaden las etiquetas meta, enlaces a CSS, etc. -->
    </head>
    <body>
-       <!-- Contenido del body -->
    </body>
    </html>
    ```
 
 3. **Crear commits:**
    ```bash
-   git add index.htm
+   git add .
    git commit -m "Se crea el esqueleto básico del index.htm"
 
    # Añadir contenido al head
