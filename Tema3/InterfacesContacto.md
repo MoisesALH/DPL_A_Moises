@@ -4,27 +4,86 @@
 ### 1. `index.php` - Formulario de creación de usuario
 
 ```php
+<?php
+    // Conexión a la base de datos
+    $conn = mysqli_connect('localhost', 'root', '1q2w3e4r', 'prueba');
+
+    if (!$conn) {
+        die("Error de conexión: " . mysqli_connect_error());
+    }
+
+    // Consulta para obtener todos los usuarios
+    $select = "SELECT * FROM users";
+    $result = mysqli_query($conn, $select);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Usuario</title>
+    <title>Administracion</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Crear Usuario</h1>
-    <form action="insertar.php" method="post">
-        <label for="nombre">Nombre: </label><input type="text" name="nombre" required>
-        <br>
-        <label for="email">Email: </label><input type="email" name="email" required>
-        <br>
-        <input type="submit" value="Enviar" name="enviar">
-    </form>
+    <div class="users">
+        <h1>Lista de Usuarios</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<tr>
+                        <td>{$row['id']}</td>
+                        <td>{$row['nombre']}</td>
+                        <td>{$row['email']}</td>
+                        <td>
+                            <a href='delete.php?id={$row['id']}'>Eliminar</a>
+                        </td>
+                    </tr>";
+            }
+            ?>
+        </table>
+    </div>
+
+    <div class="forms">
+        <div class="create">
+            <h1>Crear Usuario</h1>
+            <form action="create.php" method="post">
+                <label for="nombre">Nombre: </label><input type="text" name="nombre" required>
+                <br>
+                <label for="email">Email: </label><input type="email" name="email" required>
+                <br>
+                <input type="submit" value="Crear" name="enviar">
+            </form>
+        </div>
+
+        <div class="update">
+            <h1>Editar Usuario</h1>
+            <form action="update.php" method="post">
+                <label for="id">ID: </label><input type="number" name="id"><br>
+                <label for="nombre">Nombre: </label><input type="text" name="nombre" required>
+                <br>
+                <label for="email">Email: </label><input type="email" name="email" required>
+                <br>
+                <input type="submit" value="Actualizar">
+            </form>
+        </div>
+    </div>
 </body>
 </html>
+
+<?php
+    // Cerramos la conexión
+    mysqli_close($conn);
+?>
 ```
 
-### 2. `insertar.php` - Insertar datos en la base de datos
+### 2. `create.php` - Insertar datos en la base de datos
 
 ```php
 <?php
@@ -44,7 +103,7 @@
 
     // Ejecutamos la consulta y verificamos el resultado
     if (mysqli_query($conn, $insert)) {
-        echo "<h1>Usuario guardado con éxito</h1>";
+        header('Location: index.php');
     } else {
         echo "<h1>Error al guardar el usuario: " . mysqli_error($conn) . "</h1>";
     }
@@ -54,62 +113,7 @@
 ?>
 ```
 
-### 3. `read.php` - Mostrar los usuarios guardados
-
-```php
-<?php
-    // Conexión a la base de datos
-    $conn = mysqli_connect('localhost', 'root', '1q2w3e4r', 'prueba');
-
-    if (!$conn) {
-        die("Error de conexión: " . mysqli_connect_error());
-    }
-
-    // Consulta para obtener todos los usuarios
-    $select = "SELECT * FROM users";
-    $result = mysqli_query($conn, $select);
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuarios</title>
-</head>
-<body>
-    <h1>Lista de Usuarios</h1>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Acciones</th>
-        </tr>
-        <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>
-                    <td>{$row['id']}</td>
-                    <td>{$row['nombre']}</td>
-                    <td>{$row['email']}</td>
-                    <td>
-                        <a href='editar.php?id={$row['id']}'>Editar</a> |
-                        <a href='eliminar.php?id={$row['id']}'>Eliminar</a>
-                    </td>
-                  </tr>";
-        }
-        ?>
-    </table>
-</body>
-</html>
-
-<?php
-    // Cerramos la conexión
-    mysqli_close($conn);
-?>
-```
-
-### 4. `editar.php` - Formulario para actualizar un usuario
+### 3. `update.php` - Formulario para actualizar un usuario
 
 ```php
 <?php
@@ -155,38 +159,7 @@
 ?>
 ```
 
-### 5. `actualizar.php` - Actualizar los datos en la base de datos
-
-```php
-<?php
-    // Conexión a la base de datos
-    $conn = mysqli_connect('localhost', 'root', '1q2w3e4r', 'prueba');
-
-    if (!$conn) {
-        die("Error de conexión: " . mysqli_connect_error());
-    }
-
-    // Recolectamos los datos actualizados desde el formulario
-    $id = $_POST['id'];
-    $nombre = $_POST['nombre'];
-    $email = $_POST['email'];
-
-    // Consulta para actualizar los datos
-    $update = "UPDATE users SET nombre = '$nombre', email = '$email' WHERE id = $id";
-
-    // Ejecutamos la consulta y verificamos el resultado
-    if (mysqli_query($conn, $update)) {
-        echo "<h1>Usuario actualizado con éxito</h1>";
-    } else {
-        echo "<h1>Error al actualizar el usuario: " . mysqli_error($conn) . "</h1>";
-    }
-
-    // Cerramos la conexión
-    mysqli_close($conn);
-?>
-```
-
-### 6. `eliminar.php` - Eliminar un usuario
+### 4. `delete.php` - Eliminar un usuario
 
 ```php
 <?php
@@ -205,7 +178,7 @@
 
     // Ejecutamos la consulta y verificamos el resultado
     if (mysqli_query($conn, $delete)) {
-        echo "<h1>Usuario eliminado con éxito</h1>";
+        header('Location: index.php');
     } else {
         echo "<h1>Error al eliminar el usuario: " . mysqli_error($conn) . "</h1>";
     }
