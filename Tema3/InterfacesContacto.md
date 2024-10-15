@@ -113,7 +113,7 @@
 ?>
 ```
 
-### 3. `update.php` - Formulario para actualizar un usuario
+### 3. `update.php` - Actualizar un usuario
 
 ```php
 <?php
@@ -124,36 +124,21 @@
         die("Error de conexión: " . mysqli_connect_error());
     }
 
-    // Obtenemos el ID del usuario a editar
-    $id = $_GET['id'];
+    // Recolectamos los datos actualizados desde el formulario
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
 
-    // Consulta para obtener los datos del usuario
-    $select = "SELECT * FROM users WHERE id = $id";
-    $result = mysqli_query($conn, $select);
-    $user = mysqli_fetch_assoc($result);
-?>
+    // Consulta para actualizar los datos
+    $update = "UPDATE users SET nombre = '$nombre', email = '$email' WHERE id = $id";
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Usuario</title>
-</head>
-<body>
-    <h1>Editar Usuario</h1>
-    <form action="actualizar.php" method="post">
-        <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
-        <label for="nombre">Nombre: </label><input type="text" name="nombre" value="<?php echo $user['nombre']; ?>" required>
-        <br>
-        <label for="email">Email: </label><input type="email" name="email" value="<?php echo $user['email']; ?>" required>
-        <br>
-        <input type="submit" value="Actualizar">
-    </form>
-</body>
-</html>
+    // Ejecutamos la consulta y verificamos el resultado
+    if (mysqli_query($conn, $update)) {
+        header('Location: index.php');
+    } else {
+        echo "<h1>Error al actualizar el usuario: " . mysqli_error($conn) . "</h1>";
+    }
 
-<?php
     // Cerramos la conexión
     mysqli_close($conn);
 ?>
