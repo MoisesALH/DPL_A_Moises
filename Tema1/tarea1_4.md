@@ -1,8 +1,6 @@
 # Trabajando con Git y Markdown III
 ## Moisés Alejandro Luis Herrera
 ---
-### Ejercicio paso a paso con ejemplos de código:
-
 1. **Crear un directorio de trabajo llamado `/bloggalpon/` en el directorio del usuario:**
 
    ```bash
@@ -339,9 +337,7 @@
    git branch -d bugfix
    ```
 
-43. **Llevar los cambios de la rama `desarrollo
-
-` a la rama `master` (resolver conflictos si existen):**
+43. **Llevar los cambios de la rama `desarrollo` a la rama `master` (resolver conflictos si existen)**
 
    ```bash
    git merge desarrollo
