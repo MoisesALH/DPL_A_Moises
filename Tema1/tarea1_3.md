@@ -1,119 +1,74 @@
-# Trabajando con Git y Markdown 3
+# Trabajando con con el Visual Studio y nuestro repositorio en Github.
 ## Moisés Alejandro Luis Herrera
 ---
-1. **Crear directorio y repositorio:**
+1. **Crear una cuenta en GitHub**  
+   Primero, accedemos a [GitHub](https://github.com) y creamos una cuenta si no la tenemos ya. Nos aseguramos de verificar el correo electrónico para activar la cuenta correctamente.
+
+2. **Crear un repositorio llamado "banco"**  
+   Una vez dentro de nuestra cuenta, vamos al botón que dice "New" o "Nuevo" en la esquina superior derecha para crear un nuevo repositorio. Lo llamamos “banco”, y podemos marcarlo como público o privado según nuestras necesidades. También podemos añadir un archivo README si lo deseamos.
+
+3. **Clonar el repositorio desde la línea de comandos**  
+   Después de crear el repositorio, GitHub nos proporcionará la URL para clonarlo. Copiamos la URL y, desde la línea de comandos, ejecutamos:
+
    ```bash
-   mkdir ~/bloggalpon
-   cd ~/bloggalpon
-   git init
+   git clone https://github.com/MoisesALH/banco.git
    ```
 
-2. **Crear archivo `index.html` y añadir estructura básica:**
-   ```html
-   <!DOCTYPE html>
-   <html lang="es">
-   <head>
-       <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>Blog de Galpón</title>
-   </head>
-   <body>
-   </body>
-   </html>
-   ```
+   Esto descargará el repositorio vacío a nuestra máquina local en una carpeta llamada "banco".
+4. **Crear un proyecto llamado “banco” en otra carpeta**  
+   En una carpeta diferente en nuestro sistema, creamos un nuevo proyecto con el mismo nombre. Si estamos trabajando con un lenguaje específico, por ejemplo, si es un proyecto en Python, podríamos ejecutar:
 
-3. **Crear commits:**
    ```bash
-   git add .
-   git commit -m "Se crea el esqueleto básico del index.htm"
-
-   # Añadir contenido al head
-   # Añadir contenido al body
-   # Añadir contenido de section
-   git commit -am "Se añade la cabecera del index.htm"
-   git commit -am "Se añade la estructura básica del body"
-   git commit -am "Se añade toda la estructura de la zona de posts"
+   mkdir banco
+   cd banco
+   touch main.py
    ```
 
-4. **Crear archivo `style.css` y añadir estilos:**
-   ```css
-   /* CSS para html y body */
-   /* CSS para header, section, article, aside y footer */
-   /* CSS para section */
-   /* CSS para el footer */
-   /* CSS para H1 y enlaces */
-   ```
+   Esto creará la carpeta "banco" y un archivo principal `main.py`.
 
-5. **Crear commits para CSS:**
+5. **Copiar la carpeta del proyecto "banco" al repositorio clonado**  
+   Después de crear nuestro proyecto, copiamos la carpeta completa del proyecto "banco" que hemos creado, dentro de la carpeta del repositorio que clonamos en el paso 3. Podríamos usar comandos como:
+
    ```bash
-   git add style.css
-   git commit -m "Se añaden las CSS de html y body"
-   git commit -m "Se añaden las CSS de varios elementos HTML5"
-   git commit -m "Se añaden las CSS de section"
-   git commit -m "Se añaden las CSS del footer"
-   git commit -m "Se añaden las CSS del H1 y de los enlaces"
+   cp -r /ruta/del/proyecto/banco/* /ruta/del/repositorio/banco/
    ```
 
-6. **Añadir logo `logo.png` y crear commit:**
+   Ahora todo el contenido de nuestro proyecto está en el repositorio clonado.
+
+6. **Hacer commit y push desde Visual Studio Code**
+
+Abrimos **Visual Studio Code** y cargamos el proyecto del repositorio que hemos clonado. 
+
+- En el menú de la izquierda, seleccionamos el icono de **Source Control** (Control de código fuente), que es el símbolo de una ramita con tres puntos conectados.
+  
+- Veremos los archivos del proyecto listados como "Unstaged Changes" o "Cambios sin registrar". Para añadir estos archivos al área de staging (prepararlos para el commit), hacemos clic en el icono "+" al lado de cada archivo o usamos el botón “+” en la sección "Cambios".
+
+- Luego, escribimos un mensaje de commit en el cuadro de texto que aparece en la parte superior, por ejemplo: `"Añadir proyecto inicial de banco"`.
+
+- Presionamos el botón de check (✓) para confirmar el commit.
+
+- Finalmente, hacemos un **push** de los cambios a GitHub haciendo clic en los tres puntos en la parte superior de la pestaña de control de código fuente y seleccionamos **Push** en el menú desplegable. Esto subirá los cambios al repositorio remoto en GitHub.
+
+7. **Borrar todo el código del disco duro**  
+   Luego de asegurarnos de que todo está subido a GitHub, eliminamos el proyecto "banco" de nuestro disco duro. Simplemente navegamos a la carpeta y la borramos.
+
+8. **Clonar el proyecto de nuevo desde GitHub**  
+   Como ya hemos subido todo a GitHub, ahora podemos clonar el proyecto de nuevo desde el repositorio remoto. Abrimos la terminal y ejecutamos:
+
    ```bash
-   # Añadir logo.png al directorio raíz del proyecto
-   git add logo.png
-   git commit -m "Se añade el logotipo de Galpón"
+   git clone https://github.com/usuario/banco.git
    ```
 
-7. **Crear etiqueta de versión v1.0:**
-   ```bash
-   git tag v1.0
-   ```
+   Esto descargará el proyecto completo en una nueva carpeta local.
 
-8. **Crear rama `desarrollo` y realizar tareas:**
-   ```bash
-   git checkout -b desarrollo
+9. **Hacer una modificación del código y subirla a GitHub**  
+   Una vez clonado el proyecto, hacemos alguna modificación en el código, por ejemplo, agregamos una función en el archivo `main.py`. Luego, repetimos el proceso de commit y push:
 
-   # Crear directorio images y mover logo.png
-   # Crear directorio CSS y mover style.css
-   git mv logo.png images/
-   git commit -m "Se mueve el logotipo a la carpeta images"
-   mkdir CSS
-   git mv style.css CSS/
-   git commit -m "Se mueve la CSS a la carpeta CSS"
-
-   # Cambiar referencias en index.htm y CSS
-   # Ajustar todas las referencias necesarias
-   git commit -am "Se cambian las referencias a las CSS y a las imágenes al reorganizarlas en directorios"
-   ```
-
-9. **Crear rama `bugfix` desde `master`:**
-   ```bash
-   git checkout master
-   git checkout -b bugfix
-
-   # Realizar los cambios solicitados en los comentarios de las CSS y en el footer
-   git commit -m "Se introducen los cambios en la barra derecha y en el footer"
-   git commit -m "Se introduce el título 'Galpon' en la página"
-   git commit -m "Se realizan pequeños ajustes en el footer"
-
-   # Crear etiqueta de versión v1.1
-   git tag v1.1
-   ```
-
-10. **Llevar cambios de `bugfix` a `master` y eliminar `bugfix`:**
-    ```bash
-    git checkout master
-    git merge bugfix
-    git tag v1.1   # Asegurarse de etiquetar v1.1 en la rama master también
-
-    git branch -d bugfix
-    ```
-
-11. **Llevar cambios de `desarrollo` a `master`:**
-    ```bash
-    git checkout desarrollo
-    git rebase master   # Rebase para aplicar cambios de desarrollo sobre master y resolver conflictos, si existen
-
-    git checkout master
-    git merge desarrollo
-    git tag v1.2   # Crear etiqueta de versión v1.2 en master
-    ```
-
-¡Con estos pasos completarías la tarea según lo solicitado! Asegúrate de revisar y resolver los conflictos durante el rebase de `desarrollo` a `master` si es necesario.
+   - Guardamos los cambios.
+   - Ejecutamos los comandos desde la línea de comandos o Visual Studio:
+   
+     ```bash
+     git add .
+     git commit -m "Añadir nueva funcionalidad"
+     git push origin main
+     ```
