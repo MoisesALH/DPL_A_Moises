@@ -41,7 +41,7 @@ Editamos el archivo de configuración del VirtualHost de nuestro sitio, que gene
 sudo nano /etc/apache2/sites-available/mi-sitio.conf
 ```
 
-Añadimos un bloque para las conexiones HTTPS. La configuración queda así:
+Modificamos el bloque para conexiones HTTPS. La configuración queda así:
 
 ```apache
 <VirtualHost *:443>
